@@ -26,9 +26,9 @@ namespace FrienXone.Controllers
         // POST api/v1/User/FaceAttributes
         [HttpPost]
         [Route("api/v1/User/FaceAttributes")]
-        public async Task<string> MakeAnalysisRequest([FromBody]string value)
+        public async Task<string> MakeAnalysisRequest([FromBody]string url)
         {
-            return await utilityService.MakeAnalysisRequest(value);
+            return await utilityService.MakeAnalysisRequest(url);
         }
 
         [HttpPost]
