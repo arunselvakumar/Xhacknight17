@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace FrienXone.Services
@@ -20,7 +21,7 @@ namespace FrienXone.Services
         //    return binaryReader.ReadBytes((int)fileStream.Length);
         //}
 
-        static async void MakeAnalysisRequest(string imageFilePath)
+        public async Task<string> MakeAnalysisRequest(string imagestring)
         {
             HttpClient client = new HttpClient();
 
@@ -36,7 +37,7 @@ namespace FrienXone.Services
             HttpResponseMessage response;
 
             // Request body. Posts a locally stored JPEG image.
-            //byte[] byteData = GetImageAsByteArray(imageFilePath);
+            byte[] byteData = Encoding.ASCII.GetBytes(imagestring);
 
             using (ByteArrayContent content = new ByteArrayContent(byteData))
             {
@@ -53,6 +54,7 @@ namespace FrienXone.Services
                 // Display the JSON response.
                 Console.WriteLine("\nResponse:\n");
                 //Console.WriteLine(JsonPrettyPrint(contentString));
+                return contentString;
             }
         }
 

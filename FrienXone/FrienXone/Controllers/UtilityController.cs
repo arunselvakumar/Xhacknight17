@@ -3,44 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using FrienXone.Services;
+using FrienXone.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace FrienXone.Controllers
 {
-    [Route("api/[controller]")]
     public class UtilityController : Controller
     {
-        // GET: api/values
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly UtilityService utilityService;
+
+        public UtilityController()
         {
-            return new string[] { "value1", "value2" };
+            this.utilityService = new UtilityService();
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
+        // POST api/v1/User/FaceAttributes
         [HttpPost]
-        public void Post([FromBody]string value)
+        [Route("api/v1/User/FaceAttributes")]
+        public async Task<string> MakeAnalysisRequest([FromBody]string value)
         {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            return await utilityService.MakeAnalysisRequest(value);
         }
     }
 }
