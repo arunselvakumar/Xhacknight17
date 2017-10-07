@@ -74,5 +74,15 @@ namespace FrienXone.Services
 
             return false;
         }
+
+        public async Task<IEnumerable<ApplicationUser>> QueryUser(string hobby, string gender, string[] accessories, string location, string age, string language)
+        {
+            FeedOptions queryOptions = new FeedOptions { MaxItemCount = 20 };
+
+            var query = this.client.CreateDocumentQuery<ApplicationUser>(UriFactory.CreateDocumentCollectionUri(DatabaseName, UsersCollection), queryOptions)
+                                                .AsEnumerable();
+
+            return query;
+        }
     }
 }
