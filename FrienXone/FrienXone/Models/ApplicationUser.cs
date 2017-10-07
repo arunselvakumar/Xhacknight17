@@ -23,6 +23,9 @@ namespace FrienXone.Models
         [JsonProperty(PropertyName = "email")]
         public string Email { get; set; }
 
+        [JsonProperty(PropertyName = "faceattributes")]
+        public FaceAttributes FaceAttributes { get; set; }
+
         public override string ToString()
         {
             return JsonConvert.SerializeObject(this);
