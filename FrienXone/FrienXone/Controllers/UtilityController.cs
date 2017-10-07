@@ -13,10 +13,14 @@ namespace FrienXone.Controllers
     public class UtilityController : Controller
     {
         private readonly UtilityService utilityService;
+        private readonly LuisService luisService;
+        private readonly DatabaseService databaseService;
 
         public UtilityController()
         {
             this.utilityService = new UtilityService();
+            this.luisService = new LuisService();
+            this.databaseService = new DatabaseService();
         }
 
         // POST api/v1/User/FaceAttributes
@@ -25,6 +29,13 @@ namespace FrienXone.Controllers
         public async Task<string> MakeAnalysisRequest([FromBody]string value)
         {
             return await utilityService.MakeAnalysisRequest(value);
+        }
+
+        [HttpPost]
+        [Route("api/v1/query/{query}")]
+        public async Task Query([FromBody]ApplicationUser user, string query)
+        {
+            var processedQuery = this.luisService.ProcessQuery(query);
         }
     }
 }
