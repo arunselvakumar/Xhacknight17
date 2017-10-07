@@ -28,7 +28,7 @@ namespace FrienXone.Controllers
 
         [HttpPost]
         [Route("api/v1/User/Login")]
-        public async Task<bool> LoginUser(ApplicationUser user)
+        public async Task<bool> LoginUser([FromBody]ApplicationUser user)
         {
             return await databaseService.Login(user);
         }

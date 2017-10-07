@@ -26,6 +26,9 @@ namespace FrienXone.Services
 
         public async Task<bool> CreateUser(ApplicationUser user)
         {
+            await this.client.CreateDatabaseIfNotExistsAsync(new Database { Id = DatabaseName });
+            await this.client.CreateDocumentCollectionIfNotExistsAsync(UriFactory.CreateDatabaseUri(DatabaseName), new DocumentCollection { Id = UsersCollection });
+
             try
             {
                 await this.client.ReadDocumentAsync(UriFactory.CreateDocumentUri(DatabaseName, UsersCollection, user.UserName));
@@ -34,7 +37,7 @@ namespace FrienXone.Services
             {
                 if (de.StatusCode == HttpStatusCode.NotFound)
                 {
-                    await this.client.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(DatabaseName, UsersCollection), user.UserName);
+                    await this.client.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(DatabaseName, UsersCollection), user);
                     return true;
                 }
                 else
@@ -48,19 +51,25 @@ namespace FrienXone.Services
 
         public async Task<bool> Login(ApplicationUser user)
         {
-            FeedOptions queryOptions = new FeedOptions { MaxItemCount = -1 };
+            await this.client.CreateDatabaseIfNotExistsAsync(new Database { Id = DatabaseName });
+            await this.client.CreateDocumentCollectionIfNotExistsAsync(UriFactory.CreateDatabaseUri(DatabaseName), new DocumentCollection { Id = UsersCollection });
+
+            FeedOptions queryOptions = new FeedOptions { MaxItemCount = 10 };
 
             var query = this.client.CreateDocumentQuery<ApplicationUser>(UriFactory.CreateDocumentCollectionUri(DatabaseName, UsersCollection), queryOptions)
-                                                .FirstOrDefault<ApplicationUser>(f => f.UserName == user.UserName);
+                                                .Where(f => f.UserName == user.UserName);
 
             if(query == null)
             {
                 return false;
             }
 
-            if(query.UserName == user.UserName && query.Password == user.Password)
+            foreach (var item in query)
             {
-                return true;
+                if(item.Password == user.Password)
+                {
+                    return true;
+                }
             }
 
             return false;
