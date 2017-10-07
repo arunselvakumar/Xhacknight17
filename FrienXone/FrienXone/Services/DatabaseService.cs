@@ -75,14 +75,30 @@ namespace FrienXone.Services
             return false;
         }
 
-        public async Task<IEnumerable<ApplicationUser>> QueryUser(string hobby, string gender, string[] accessories, string location, string age, string language)
+        public async Task<IEnumerable<ApplicationUser>> QueryUser(string hobby, string gender, string accessories, string location, string age, string language)
         {
             FeedOptions queryOptions = new FeedOptions { MaxItemCount = 20 };
 
             var query = this.client.CreateDocumentQuery<ApplicationUser>(UriFactory.CreateDocumentCollectionUri(DatabaseName, UsersCollection), queryOptions)
+                                                .Where(user => user.Hobbies.Contains(hobby))
                                                 .AsEnumerable();
 
-            return query;
+            if(!string.IsNullOrEmpty(gender))
+            {
+                query = query.Where(user => user.Gender != gender);
+            }
+
+            if(accessories.Any())
+            {
+                query.Where(user => user.Accessories.Contains(accessories));
+            }
+
+            if(!string.IsNullOrEmpty(language))
+            {
+                query.Where(user => user.Language == language);
+            }
+
+            return query.OrderBy(user => user.Location);
         }
     }
 }
