@@ -1,0 +1,11 @@
+C:\Users\iamth\Documents\Xhacknight17\Xhacknight17\FrienXone\FrienXone\bin\Debug\netcoreapp2.0\FrienXone.deps.json
+C:\Users\iamth\Documents\Xhacknight17\Xhacknight17\FrienXone\FrienXone\bin\Debug\netcoreapp2.0\FrienXone.runtimeconfig.json
+C:\Users\iamth\Documents\Xhacknight17\Xhacknight17\FrienXone\FrienXone\bin\Debug\netcoreapp2.0\FrienXone.runtimeconfig.dev.json
+C:\Users\iamth\Documents\Xhacknight17\Xhacknight17\FrienXone\FrienXone\bin\Debug\netcoreapp2.0\FrienXone.dll
+C:\Users\iamth\Documents\Xhacknight17\Xhacknight17\FrienXone\FrienXone\bin\Debug\netcoreapp2.0\FrienXone.pdb
+C:\Users\iamth\Documents\Xhacknight17\Xhacknight17\FrienXone\FrienXone\obj\Debug\netcoreapp2.0\FrienXone.csprojResolveAssemblyReference.cache
+C:\Users\iamth\Documents\Xhacknight17\Xhacknight17\FrienXone\FrienXone\obj\Debug\netcoreapp2.0\FrienXone.csproj.CoreCompileInputs.cache
+C:\Users\iamth\Documents\Xhacknight17\Xhacknight17\FrienXone\FrienXone\obj\Debug\netcoreapp2.0\FrienXone.AssemblyInfoInputs.cache
+C:\Users\iamth\Documents\Xhacknight17\Xhacknight17\FrienXone\FrienXone\obj\Debug\netcoreapp2.0\FrienXone.AssemblyInfo.cs
+C:\Users\iamth\Documents\Xhacknight17\Xhacknight17\FrienXone\FrienXone\obj\Debug\netcoreapp2.0\FrienXone.dll
+C:\Users\iamth\Documents\Xhacknight17\Xhacknight17\FrienXone\FrienXone\obj\Debug\netcoreapp2.0\FrienXone.pdb
