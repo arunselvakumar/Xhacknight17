@@ -77,28 +77,34 @@ namespace FrienXone.Services
 
         public async Task<IEnumerable<ApplicationUser>> QueryUser(string hobby = null, string gender = null, string accessories = null, string location = null, string age = null, string language = null)
         {
+            List<ApplicationUser> Users = new List<ApplicationUser>();
             FeedOptions queryOptions = new FeedOptions { MaxItemCount = 20 };
 
             var query = this.client.CreateDocumentQuery<ApplicationUser>(UriFactory.CreateDocumentCollectionUri(DatabaseName, UsersCollection), queryOptions)
-                                                .Where(user => user.Hobbies.Contains(hobby))
                                                 .AsEnumerable();
 
-            if(!string.IsNullOrEmpty(gender))
+            foreach (var item in query)
             {
-                query = query.Where(user => user.Gender != gender);
+                if(!string.IsNullOrEmpty(hobby))
+                {
+                    if(item.Hobbies.Select(i => i.ToLower()).Contains(hobby.ToLower()))
+                    Users.Add(item);
+                }
+
+                if (!string.IsNullOrEmpty(gender))
+                {
+                    if (item.Gender.ToLower() != gender.ToLower())
+                        Users.Add(item);
+                }
+
+                if (!string.IsNullOrEmpty(language))
+                {
+                    if (language.ToLower() == item.Language.ToLower())
+                        Users.Add(item);
+                }
             }
 
-            if(accessories.Any())
-            {
-                query.Where(user => user.Accessories.Contains(accessories));
-            }
-
-            if(!string.IsNullOrEmpty(language))
-            {
-                query.Where(user => user.Language == language);
-            }
-
-            return query.OrderBy(user => user.Location);
+            return Users.Distinct().OrderBy(i => i.Location);
         }
     }
 }

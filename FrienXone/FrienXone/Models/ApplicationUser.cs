@@ -17,14 +17,19 @@ namespace FrienXone.Models
         [JsonProperty(PropertyName = "lastname")]
         public string LastName { get; set; }
 
+        [JsonProperty(PropertyName = "ImageUrl")]
+        public string ImageUrl { get; set; }
+
         [JsonProperty(PropertyName = "password")]
         public string Password { get; set; }
 
         [JsonProperty(PropertyName= "accessories")]
         public string[] Accessories { get; set; }
 
+        [JsonProperty(PropertyName = "why")]
         public string Why { get; set; }
 
+        [JsonProperty(PropertyName = "language")]
         public string Language { get; set; }
 
         [JsonProperty(PropertyName = "gender")]
@@ -34,7 +39,7 @@ namespace FrienXone.Models
         public string Email { get; set; }
 
         [JsonProperty(PropertyName="hobbies")]
-        public IEnumerable<string> Hobbies { get; set; }
+        public string[] Hobbies { get; set; }
 
         [JsonProperty(PropertyName = "faceattributes")]
         public FaceAttributes FaceAttributes { get; set; }

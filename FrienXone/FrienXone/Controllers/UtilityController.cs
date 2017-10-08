@@ -62,5 +62,13 @@ namespace FrienXone.Controllers
 
             return null;
         }
+
+        // POST api/v1/User/query/{language}/{accessories}/{hobby}
+        [HttpPost]
+        [Route("api/v1/query/{language}/{hobby}")]
+        public async Task<IEnumerable<ApplicationUser>> FindMatch(string language, string accessories, string hobby)
+        {
+            return await this.databaseService.QueryUser(hobby: hobby, language: language, accessories: accessories);
+        }
     }
 }
