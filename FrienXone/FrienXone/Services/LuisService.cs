@@ -1,8 +1,10 @@
 ﻿using FrienXone.Models;
+using Newtonsoft.Json;
 using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace FrienXone.Services
@@ -13,14 +15,14 @@ namespace FrienXone.Services
 
         public async Task<QueryResponse> ProcessQuery(string query)
         {
-            var restClient = new RestClient();
-            var request = new RestRequest();
-            request.Method = Method.GET;
+            var httpClient = new HttpClient();
+            var resp = await httpClient.GetAsync(LuisEndPoint + query);
 
-            restClient.BaseUrl = new Uri(LuisEndPoint + query);
-            var response = restClient.Execute<LuisResponse>(request);
+            var content = await resp.Content.ReadAsStringAsync();
 
-            return new QueryResponse { Intent = response.Data.TopScoringIntent.Intent, Entity = response.Data.Entities.FirstOrDefault().Entity, Type = response.Data.Entities.FirstOrDefault().Type };
+            var response = JsonConvert.DeserializeObject<LuisResponse>(content);
+
+            return new QueryResponse { Intent = response.TopScoringIntent.Intent, Entity = response.Entities.FirstOrDefault().Entity, Type = response.Entities.FirstOrDefault().Type };
         }
     }
 }

@@ -44,17 +44,17 @@ namespace FrienXone.Controllers
                 string accessories = string.Empty;
                 if (processedQuery.Type == "hobby")
                 {
-                    hobby = processedQuery.Intent;
+                    hobby = processedQuery.Entity;
                 }
 
                 if(processedQuery.Type == "language")
                 {
-                    language = processedQuery.Intent;
+                    language = processedQuery.Entity;
                 }
 
                 if(processedQuery.Type == "accessories")
                 {
-                    accessories = processedQuery.Intent;
+                    accessories = processedQuery.Entity;
                 }
 
                 return await this.databaseService.QueryUser(hobby:hobby, language: language, accessories: accessories);
