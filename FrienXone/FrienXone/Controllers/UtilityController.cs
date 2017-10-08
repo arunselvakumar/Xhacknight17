@@ -33,9 +33,34 @@ namespace FrienXone.Controllers
 
         [HttpPost]
         [Route("api/v1/query/{query}")]
-        public async Task Query([FromBody]ApplicationUser user, string query)
+        public async Task<IEnumerable<ApplicationUser>> Query([FromBody]ApplicationUser user, string query)
         {
-            var processedQuery = this.luisService.ProcessQuery(query);
+            var processedQuery = await this.luisService.ProcessQuery(query);
+
+            if(processedQuery.Intent.Equals("FindFriend"))
+            {
+                string hobby = string.Empty;
+                string language = string.Empty;
+                string accessories = string.Empty;
+                if (processedQuery.Type == "hobby")
+                {
+                    hobby = processedQuery.Intent;
+                }
+
+                if(processedQuery.Type == "language")
+                {
+                    language = processedQuery.Intent;
+                }
+
+                if(processedQuery.Type == "accessories")
+                {
+                    accessories = processedQuery.Intent;
+                }
+
+                return await this.databaseService.QueryUser(hobby:hobby, language: language, accessories: accessories);
+            }
+
+            return null;
         }
     }
 }

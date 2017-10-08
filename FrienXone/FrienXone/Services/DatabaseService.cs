@@ -75,7 +75,7 @@ namespace FrienXone.Services
             return false;
         }
 
-        public async Task<IEnumerable<ApplicationUser>> QueryUser(string hobby, string gender, string accessories, string location, string age, string language)
+        public async Task<IEnumerable<ApplicationUser>> QueryUser(string hobby = null, string gender = null, string accessories = null, string location = null, string age = null, string language = null)
         {
             FeedOptions queryOptions = new FeedOptions { MaxItemCount = 20 };
 

@@ -23,6 +23,8 @@ namespace FrienXone.Models
         [JsonProperty(PropertyName= "accessories")]
         public string[] Accessories { get; set; }
 
+        public string Why { get; set; }
+
         public string Language { get; set; }
 
         [JsonProperty(PropertyName = "gender")]
